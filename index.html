@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Explorer</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Travel Explorer</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home" class="active">Home</a></li>
+                    <li><a href="#favorites">Favorites</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-toggle" aria-label="Toggle dark mode">
+                    <span class="theme-icon">🌙</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="section active">
+            <div class="container">
+                <div class="search-section">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search destinations by name, country, or state...">
+                        <button id="search-button">Search</button>
+                    </div>
+                    <div class="filter-section">
+                        <h2>Filter by Category</h2>
+                        <div class="filter-tags">
+                            <button class="filter-tag active" data-tag="all">All</button>
+                            <button class="filter-tag" data-tag="beach">Beach</button>
+                            <button class="filter-tag" data-tag="mountain">Mountain</button>
+                            <button class="filter-tag" data-tag="city">City</button>
+                            <button class="filter-tag" data-tag="historical">Historical</button>
+                            <button class="filter-tag" data-tag="adventure">Adventure</button>
+                            <button class="filter-tag" data-tag="spiritual">Spiritual</button>
+                            <button class="filter-tag" data-tag="cultural">Cultural</button>
+                            <button class="filter-tag" data-tag="nature">Nature</button>
+                            <button class="filter-tag" data-tag="architecture">Architecture</button>
+                            <button class="filter-tag" data-tag="food">Food</button>
+                            <button class="filter-tag" data-tag="shopping">Shopping</button>
+                            <button class="filter-tag" data-tag="romantic">Romantic</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="destinations-grid" class="destinations-grid">
+                    <!-- Destinations will be loaded here -->
+                </div>
+            </div>
+        </section>
+
+        <section id="favorites" class="section">
+            <div class="container">
+                <h2>Your Favorite Destinations</h2>
+                <div id="favorites-grid" class="destinations-grid">
+                    <!-- Favorites will be loaded here -->
+                </div>
+                <div id="no-favorites" class="no-favorites">
+                    <p>You haven't added any favorites yet.</p>
+                    <p>Browse destinations and click the heart icon to add them to your favorites!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="contact-header">
+                    <h2>Contact Us</h2>
+                    <p>Have questions or need help planning your next adventure? We'd love to hear from you!</p>
+                </div>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-card">
+                            <div class="contact-icon">📧</div>
+                            <h3>Email Us</h3>
+                            <p>travelexplorer@mail.com</p>
+                            <p>We'll respond within 24 hours</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">📞</div>
+                            <h3>Call Us</h3>
+                            <p>+91 04568974532</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">💬</div>
+                            <h3>Live Chat</h3>
+                            <p>Available 24/7</p>
+                            <p>Get instant help from our team</p>
+                        </div>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon">📍</div>
+                            <h3>Visit Us</h3>
+                            <p>7,Travel Street</p>
+                            <p>Adventure City, AC 627001</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-form-container">
+                        <form class="contact-form" id="contact-form">
+                            <div class="form-group">
+                                <label for="name">Full Name *</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject *</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="general">General Inquiry</option>
+                                    <option value="booking">Booking Assistance</option>
+                                    <option value="technical">Technical Support</option>
+                                    <option value="feedback">Feedback & Suggestions</option>
+                                    <option value="partnership">Partnership Opportunities</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message *</label>
+                                <textarea id="message" name="message" rows="6" required placeholder="Tell us about your travel plans or how we can help you..."></textarea>
+                            </div>
+                            
+                            <div class="form-group checkbox-group">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <label for="newsletter">Subscribe to our newsletter for travel tips and exclusive deals</label>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-loading" style="display: none;">Sending...</span>
+                            </button>
+                        </form>
+                        
+                        <div id="form-message" class="form-message"></div>
+                    </div>
+                </div>
+
+                <div class="faq-section">
+                    <h3>Frequently Asked Questions</h3>
+                    <div class="faq-grid">
+                        <div class="faq-item">
+                            <h4>How do I save destinations to favorites?</h4>
+                            <p>Simply click the heart icon on any destination card or in the destination details modal to add it to your favorites.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h4>Is the weather information real-time?</h4>
+                            <p>Yes! We use OpenWeatherMap API to provide real-time weather data for all destinations.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h4>Can I suggest new destinations?</h4>
+                            <p>Absolutely! We're always looking to expand our collection. Use the contact form to suggest new places.</p>
+                        </div>
+                        
+                        <div class="faq-item">
+                            <h4>Do you offer travel booking services?</h4>
+                            <p>Currently, we focus on destination discovery. However, we're working on integrating booking features in the future.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Destination Detail Modal -->
+    <div id="destination-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-content">
+                <!-- Modal content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Travel Explorer</h4>
+                    <p>Discover your next adventure with our comprehensive travel guide. Explore destinations worldwide with detailed information, weather data, and interactive maps.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#favorites">Favorites</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Connect With Us</h4>
+                   
+                        <div class="social-links">
+                            <a href="#" aria-label="Facebook">
+                                <img src="https://cdn-icons-png.flaticon.com/128/15047/15047435.png" alt="Facebook" width="24" height="24">
+                            </a>
+                            <a href="#" aria-label="Twitter">
+                                <img src="https://cdn-icons-png.flaticon.com/128/5969/5969020.png" alt="Twitter" width="24" height="24">
+                            </a>
+                            <a href="#" aria-label="Instagram">
+                                <img src="https://cdn-icons-png.flaticon.com/128/15707/15707749.png" alt="Instagram" width="24" height="24">
+                            </a>
+                            <a href="#" aria-label="YouTube">
+                                <img src="https://cdn-icons-png.flaticon.com/128/1384/1384060.png" alt="YouTube" width="24" height="24">
+                            </a>
+                        </div>
+                    </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe for travel tips and destination updates</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Travel Explorer. All rights reserved.</p>
+                <p>Weather data provided by <a href="https://openweathermap.org/" target="_blank">OpenWeatherMap</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
